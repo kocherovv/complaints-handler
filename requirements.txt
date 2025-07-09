@@ -1,3 +1,5 @@
 fastapi[standard]
 requests
 openai
+pydantic
+uvicorn

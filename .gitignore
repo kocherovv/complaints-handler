@@ -2,3 +2,4 @@
 venv
 diamant-vision-task.iml
 complaints.db
+.env

@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  complaint-handler:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      SENTIMENT_API_KEY: ${SENTIMENT_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    volumes:
+      - .:/app
+      - sqlite-data:/app
+
+volumes:
+  sqlite-data:
