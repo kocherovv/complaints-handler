@@ -3,7 +3,7 @@ import time
 import logging
 from fastapi import FastAPI, HTTPException
 from openai import AsyncOpenAI
-from pkg.models import ComplaintRequest, ComplaintResponse, ComplaintListResponse, ComplaintDetailResponse, CloseComplaintRequest, GetComplaintsRequest
+from pkg.models import ComplaintRequest, ComplaintResponse, ComplaintDetailResponse, CloseComplaintRequest, GetComplaintsRequest
 from pkg.repository import init_db, fetch_complaints_from_db, save_complaint_to_db, update_category_in_db, mark_complaint_as_closed
 from pkg.service import get_sentiment_async, get_category_async
 
@@ -44,7 +44,7 @@ async def handle_complaint(complaint_request: ComplaintRequest):
     return ComplaintResponse(id=complaint_id, status="open", sentiment=sentiment, category=category)
 
 
-@app.get("/complaints", response_model=ComplaintListResponse)
+@app.get("/complaints")
 async def get_complaints(getComplaintsRequest: GetComplaintsRequest):
     try:
         from_time = int(time.time()) - getComplaintsRequest.hours * 3600
@@ -65,7 +65,7 @@ async def get_complaints(getComplaintsRequest: GetComplaintsRequest):
                 for row in rows
             ]
 
-            return ComplaintListResponse(complaints=complaints)
+            return complaints
         else:
             raise HTTPException(detail="BAD_REQUEST: Статус может быть только: open или closed")
 

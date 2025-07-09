@@ -26,10 +26,6 @@ class ComplaintDetailResponse(BaseModel):
         from_attributes = True
 
 
-class ComplaintListResponse(BaseModel):
-    complaints: List[ComplaintDetailResponse]
-
-
 class CloseComplaintRequest(BaseModel):
     complaint_id: int
 
